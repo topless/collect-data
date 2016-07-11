@@ -1,6 +1,8 @@
+#!/usr/bin/env python
 # coding: utf-8
 
 import os
+import sys
 import json
 import shutil
 
@@ -12,7 +14,7 @@ FNAME = 'meta.json'
 def main():
   data = read_input()
   save_input(data)
-  move_data(data['name'])
+  move_data(os.path.join(DEST_DIR, data['name']))
 
 
 def read_input():
@@ -30,16 +32,21 @@ def read_input():
 def save_input(data):
   with open(FNAME, 'w') as output:
     json.dump(data, output)
-  print("{} saved in {}".format(data, FNAME))
+  print("Info saved in {}".format(FNAME))
 
 
-def move_data(user_name):
-  for entry in os.listdir(os.getcwd()):
+def move_data(dest):
+  count = 1
+  for entry in sorted(os.listdir(os.getcwd())):
     if not entry.startswith('2016'):
       continue
-    shutil.move(entry, user_name)
-  shutil.move(user_name, DEST_DIR)
+    shutil.copy2(FNAME, entry)
+    final_dest = os.path.join(dest, str(count), entry)
+    print("Moving to {}".format(final_dest))
+    shutil.move(entry, final_dest)
+    count += 1
 
 
 if __name__ == '__main__':
   main()
+  sys.exit()
