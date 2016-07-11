@@ -12,7 +12,7 @@ FNAME = 'meta.json'
 def main():
   data = read_input()
   save_input(data)
-  move_data(data['name'])
+  move_data(os.path.join(DEST_DIR, data['name']))
 
 
 def read_input():
@@ -33,12 +33,12 @@ def save_input(data):
   print("{} saved in {}".format(data, FNAME))
 
 
-def move_data(user_name):
+def move_data(dist_dir):
   for entry in os.listdir('.'):
-    if not os.path.isdir(entry) or entry == DEST_DIR:
+    if not os.path.isdir(entry) or entry == DEST_DIR or entry == 'torsdag6-24':
       continue
     shutil.copy2(FNAME, entry)
-    shutil.move(entry, os.path.join(DEST_DIR, user_name))
+    shutil.move(entry, dist_dir)
 
 
 if __name__ == '__main__':
