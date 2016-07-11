@@ -17,18 +17,20 @@ def main():
 
 def read_input():
   data = {
+    'gender': raw_input("What's your gender (m/f)? ").lower(),
     'name': raw_input("What's your name? ").title(),
-    'gender': raw_input("What's your gender? ").lower(),
-    'color': raw_input("What's your eye color? ").lower(),
-    'origin': raw_input("Where are you from? ").title()
+    'origin': raw_input("Where are you from? ").title(),
+    'eye_color': raw_input("What's your eye color? ").lower(),
+    'glasses': raw_input("Do you wear glasses (y/n)? ").lower(),
+    'lenses': raw_input("Do you wear lenses (y/n)? ").lower()
   }
   return data
 
 
-def save_input(info):
+def save_input(data):
   with open(FNAME, 'w') as output:
-    json.dump(info, output)
-  print("{} saved in {}".format(info, FNAME))
+    json.dump(data, output)
+  print("{} saved in {}".format(data, FNAME))
 
 
 def move_data():
