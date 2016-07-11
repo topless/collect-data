@@ -12,13 +12,13 @@ FNAME = 'meta.json'
 def main():
   data = read_input()
   save_input(data)
-  move_data(os.path.join(DEST_DIR, data['name']))
+  move_data(data['name'])
 
 
 def read_input():
   data = {
-    'gender': raw_input("What's your gender (m/f)? ").lower(),
     'name': raw_input("What's your name? ").title(),
+    'gender': raw_input("What's your gender (m/f)? ").lower(),
     'origin': raw_input("Where are you from? ").title(),
     'eye_color': raw_input("What's your eye color? ").lower(),
     'glasses': raw_input("Do you wear glasses (y/n)? ").lower(),
@@ -33,12 +33,12 @@ def save_input(data):
   print("{} saved in {}".format(data, FNAME))
 
 
-def move_data(dist_dir):
-  for entry in os.listdir('.'):
-    if not os.path.isdir(entry) or entry == DEST_DIR or entry == 'torsdag6-24':
+def move_data(user_name):
+  for entry in os.listdir(os.getcwd()):
+    if not entry.startswith('2016'):
       continue
-    shutil.copy2(FNAME, entry)
-    shutil.move(entry, dist_dir)
+    shutil.move(entry, user_name)
+  shutil.move(user_name, DEST_DIR)
 
 
 if __name__ == '__main__':
